@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -13,6 +14,20 @@ final goRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     initialLocation: '/sign-in',
     debugLogDiagnostics: true,
+    redirect: (context, state) {
+      final isLoggedIn = FirebaseAuth.instance.currentUser != null;
+
+      if (isLoggedIn) {
+        if (state.uri.path == '/sign-in') {
+          return '/profile';
+        }
+      } else {
+        if (state.uri.path == '/profile') {
+          return '/sign-in';
+        }
+      }
+      return null;
+    },
     routes: [
       GoRoute(
         path: '/sign-in',
