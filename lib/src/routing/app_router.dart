@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_firebase_app/src/routing/go_router_refresh_stream.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -28,6 +29,8 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       }
       return null;
     },
+    refreshListenable:
+        GoRouterRefreshStream(FirebaseAuth.instance.authStateChanges()),
     routes: [
       GoRoute(
         path: '/sign-in',
