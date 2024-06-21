@@ -52,3 +52,6 @@ android/app/google-services.json
 
 # Firebase project
 .firebaserc
+
+# Ignore the Firebase emulator seed folder used in the course
+seed/
